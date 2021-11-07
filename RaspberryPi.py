@@ -44,7 +44,6 @@ def on_message(client, userdata, message):
 
 # send measurement
 def sendMeasurements():
-def sendMeasurements():
 	if __name__ == '__main__':
 			ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
 			ser.flush()
@@ -140,6 +139,15 @@ def sendMeasurements():
 							temp= float(line[4:])
 							print(temp)
 							publish("s/us", "200,c8y_Temp,WaterTemp,"+str(temp))
+							
+						if(line[0:5] == "Water"):
+							print("Water Quality"+str(line[5:0]))
+							waterQuality= float(line[5:])
+							print(waterQuality)
+							publish("s/us", "200,c8y_Temp,WaterTemp,"+str(waterQuality))
+							
+							
+							
 
 
               
