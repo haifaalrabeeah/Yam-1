@@ -166,6 +166,10 @@ void loop() {
 
 gravityTds.update();                               //sample and calculate
 tdsValue = gravityTds.getTdsValue();              // then get the value
+        
+String TDS = "TDS";
+String tdsLevel = TDS+tdsValue;
+        
 Serial.println("TDS: ");
 Serial.print(tdsValue,0);
 Serial.print(" PPM");
@@ -185,6 +189,9 @@ for(int i=0;i<10;i++)                            //Get 10 sample value from the 
     avgValue+=buf[i];
   float phVolt=(float)avgValue*5.0/1024/10;   //convert the analog into millivolt
   float phValue=-5.7*phVolt+21.34;            //convert the millivolt into pH value
+  
+  String pH = "pH";
+  String pHLevel = pH+phValue;   
   
   Serial.print("pH:");  
   Serial.print(phValue,2);
