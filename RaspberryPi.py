@@ -140,11 +140,17 @@ def sendMeasurements():
 							print(temp)
 							publish("s/us", "200,c8y_Temp,WaterTemp,"+str(temp))
 							
-						if(line[0:5] == "Water"):
-							print("Water Quality"+str(line[5:0]))
-							waterQuality= float(line[5:])
-							print(waterQuality)
-							publish("s/us", "200,c8y_Temp,WaterTemp,"+str(waterQuality))
+						if(line[0:3] == "TDS"):
+							print("Water Quality"+str(line[3:0]))
+							TDS= float(line[3:])
+							print(TDS)
+							publish("s/us", "200,c8y_TDS,WaterQuality,"+str(TDS))
+							
+						if(line[0:2] == "pH"):
+							print("Water Quality"+str(line[2:0]))
+							pH= float(line[2:])
+							print(pH)
+							publish("s/us", "200,c8y_pH,pHLevel,"+str(pH))
 							
 							
 							
