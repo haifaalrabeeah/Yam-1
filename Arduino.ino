@@ -1,4 +1,3 @@
-
 /* 0- General */
 
     int decimalPrecision = 2;               // decimal places for all values shown in LED Display & Serial Monitor
@@ -170,10 +169,8 @@ tdsValue = gravityTds.getTdsValue();              // then get the value
 String TDS = "TDS";
 String tdsLevel = TDS+tdsValue;
         
-Serial.println("TDS: ");
-Serial.print(tdsValue,0);
-Serial.print(" PPM");
-delay(100);
+Serial.println(tdsLevel);
+
 
 
 //Water pH Level
@@ -193,11 +190,7 @@ for(int i=0;i<10;i++)                            //Get 10 sample value from the 
   String pH = "pH";
   String pHLevel = pH+phValue;   
   
-  Serial.print("pH:");  
-  Serial.print(phValue,2);
-  Serial.println(" ");
-  delay(100);
-
+  Serial.println(pHLevel);
         }
       
 
