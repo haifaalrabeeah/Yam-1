@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+#!/usr/bin/env python3
 import paho.mqtt.client as mqtt
 import time, random
 from gpiozero import LightSensor,Buzzer
@@ -50,8 +51,12 @@ def sendMeasurements():
 					
 			while True:
 					print("Sending LDR measurement...")
-					heartrate = random.randint(80, 120)
-					publish("s/us", "200,c8y_heartRate,HR,"+str(heartrate))
+					url = "https://yam-project-2021-default-rtdb.firebaseio.com/HeartRate/HR.json"
+					payload = ""
+					headers = {}
+					response = requests.request("GET", url, headers=headers, data=payload)
+					print(response.text)
+					publish("s/us", "200,c8y_heartRate,HR,"+str(response.text))
 					GPIO.output(14, GPIO.LOW)
 					sleep(0.1)
 					if ser.in_waiting > 0:
@@ -70,9 +75,9 @@ def sendMeasurements():
 								GPIO.output(14, GPIO.HIGH)
 								time.sleep(5)
 								GPIO.output(14, GPIO.LOW)
-							if (ldr1 < 350 and ldr2 < 350):
+							if (ldr1 < 350 and ldr2 < 350 and response.text < "50"):
 								publish("s/us", "200,c8y_LDR,LDR," + str(0))
-								publish("s/us", "303,minorAlarmType[,breakthrough]")
+								publish("s/us", "301,criticalAlarmType[,breakthrough]")
 							else:
 								publish("s/us", "200,c8y_LDR,LDR," + str(1))   
 								                 			
@@ -89,9 +94,9 @@ def sendMeasurements():
 								time.sleep(5)
 								GPIO.output(14, GPIO.LOW)
 
-							if (ldr3 < 350 and ldr4 < 350):
+							if (ldr3 < 350 and ldr4 < 350 and response.text < "50"):
 								publish("s/us", "200,c8y_LDR,LDR," + str(0))
-								publish("s/us", "303,minorAlarmType[,breakthrough]")
+								publish("s/us", "301,criticalAlarmType[,breakthrough]")
 							else:
 								publish("s/us", "200,c8y_LDR,LDR," + str(1))
 				
@@ -109,9 +114,9 @@ def sendMeasurements():
 								GPIO.output(14, GPIO.HIGH)
 								time.sleep(5)
 								GPIO.output(14, GPIO.LOW)
-							if (ldr5 < 350 and ldr6 < 350):
+							if (ldr5 < 350 and ldr6 < 350 and response.text < "50"):
 								publish("s/us", "200,c8y_LDR,LDR," + str(0))
-								publish("s/us", "303,minorAlarmType[,breakthrough]")
+								publish("s/us", "301,criticalAlarmType[,breakthrough]")
 							else:
 								publish("s/us", "200,c8y_LDR,LDR," + str(1))   								
                 			
@@ -128,7 +133,7 @@ def sendMeasurements():
 								time.sleep(5)
 								GPIO.output(14, GPIO.LOW)
 
-							if (ldr7 < 350 and ldr8 < 350):
+							if (ldr7 < 350 and ldr8 < 350 and response.text < "50"):
 								publish("s/us", "200,c8y_LDR,LDR," + str(0))
 								publish("s/us", "303,minorAlarmType[,breakthrough]")
 							else:
