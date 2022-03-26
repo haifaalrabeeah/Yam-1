@@ -16,8 +16,11 @@ The main languages used are:
 
 **C++** which is also the source code of the hardware, it can be found in *Arduino.ino*.
 
-**JavaScript** which is the source code of the application deployed on fitbit in order send heart rate readings, it can be found in *Fitbit Heart App*
+**JavaScript** which is the source code of the application deployed on fitbit in order send heart rate readings, it can be found in *Fitbit Heart App*.
 
+**Cumulocity IoT Platform** collecting, managing, and visualizing sensory data retained in the operational database.
+
+**Firebase** used the real-time database to integrate it with Flutter.
 
 **The main libraries used for flutter are:**
 
@@ -27,8 +30,12 @@ The main languages used are:
 - firebase_auth: A Flutter plugin to use the Firebase Authentication API.
 
 
+**The main libraries used for python are:** 
 
-
+- Paho-MQTT: is an open-source Python MQTT client developed by the Eclipse Foundation. Paho-MQTT can run on any device that supports Python. In this tutorial, we will build an MQTT client with Paho.
+- JSON: The standard library of Python has a wonderful JSON module that makes working with JSON simple.
+- time: This module provides various time-related functions.
+- requests: Requests is a HTTP library for the Python programming language. The goal of the project is to make HTTP requests simpler and more human-friendly. 
 
 ----------------------------------------------------------------------------------------------------------
 
