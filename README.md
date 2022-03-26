@@ -28,13 +28,13 @@ The main libraries used are:
 Below is a Step-By-Step on how to configure the hardware.
 
 *for the Arduino MEGA - LDR Connection Circuit*
+<img width="500" alt="Screen Shot 2022-03-26 at 6 23 47 PM" src="https://user-images.githubusercontent.com/93124382/160246117-ba90f0c5-7c88-4d65-a96b-8a0227da694f.png">
 
-![Uploading Screen Shot 2022-03-26 at 6.08.32 PM.png…]()
 
 You Will Need:
-*10K Ohm resistor.
-*light dependent resistors (LDR).
-*3 wires.
+- 10K Ohm resistor.
+- light dependent resistors (LDR).
+- 3 wires.
 
 Assembly:
 - Connect one of the photo-resistor leads to 5V power supply (RED Wire). And the other lead to the Arduino analog pin A10 to send the values (ORANGE Wire).
@@ -44,11 +44,11 @@ Assembly:
 ----------------------------------------------------------------------------------------------------------
 
 *Water Quality Connection Circuit*
-<img width="575" alt="Screen Shot 2022-03-26 at 6 20 14 PM" src="https://user-images.githubusercontent.com/93124382/160245992-1bfb2bb0-2354-4175-ade7-eb869b406925.png">
+<img width="500" alt="Screen Shot 2022-03-26 at 6 20 14 PM" src="https://user-images.githubusercontent.com/93124382/160245992-1bfb2bb0-2354-4175-ade7-eb869b406925.png">
 
 You Will Need:
-*TDS (Water Quality Sensor)
-*Wires
+- TDS (Water Quality Sensor)
+- Wires
 
 Assembly:
 - Connect the Vin of the TDS sensor to the 5V pin in Arduino (RED Wire).
@@ -59,11 +59,11 @@ Assembly:
 
 *pH Level Connection Circuit*
 
-<img width="683" alt="Screen Shot 2022-03-26 at 6 20 50 PM" src="https://user-images.githubusercontent.com/93124382/160246010-5f553fa7-b0dd-4d7c-847b-64b86d52ea85.png">
+<img width="500" alt="Screen Shot 2022-03-26 at 6 20 50 PM" src="https://user-images.githubusercontent.com/93124382/160246010-5f553fa7-b0dd-4d7c-847b-64b86d52ea85.png">
 
 You Will Need:
-*PH level sensor 
-*Wires
+- PH level sensor 
+- Wires
 
 Assembly:
 - Connect the Vin of the PH sensor to the 5V pin in Arduino (RED Wire).
@@ -77,11 +77,11 @@ Lastly, run the script shown in *Arduino.ino* on Arduino MEGA.
 
 *for the Raspberry Pi*
 
-![AllSystem copy](https://user-images.githubusercontent.com/93124382/160245501-118ea209-4d0f-40e9-9284-7c68f813566a.png)
+<img width="500" alt="Screen Shot 2022-03-26 at 6 25 14 PM" src="https://user-images.githubusercontent.com/93124382/160246183-e554c5d6-8f87-4266-94ee-c08808b7b8aa.png">
 
 You Will Need:
-*Motor
-*Wires
+- Motor
+- Wires
 
 Assembly:
 - Connect the power wire of the motor to the 5V pin in Raspberry Pi (BLUE Wire).
