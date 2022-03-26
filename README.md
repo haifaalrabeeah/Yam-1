@@ -19,7 +19,16 @@ The main languages used are:
 **JavaScript** which is the source code of the application deployed on fitbit in order send heart rate readings, it can be found in *Fitbit Heart App*
 
 
-The main libraries used are: 
+**The main libraries used for flutter are:**
+
+- firebase_database: A Flutter plugin to use the Firebase Database API.
+- firebase_messaging: A Flutter plugin to use the Firebase Cloud Messaging API.
+- syncfusion_flutter_charts: The Flutter Charts package is a data visualization library written natively in Dart for creating beautiful, animated and high-performance charts, which are used to craft high-quality mobile app user interfaces using Flutter.
+- firebase_auth: A Flutter plugin to use the Firebase Authentication API.
+
+
+
+
 
 ----------------------------------------------------------------------------------------------------------
 
@@ -44,6 +53,7 @@ Assembly:
 ----------------------------------------------------------------------------------------------------------
 
 *Water Quality Connection Circuit*
+
 <img width="500" alt="Screen Shot 2022-03-26 at 6 20 14 PM" src="https://user-images.githubusercontent.com/93124382/160245992-1bfb2bb0-2354-4175-ade7-eb869b406925.png">
 
 You Will Need:
