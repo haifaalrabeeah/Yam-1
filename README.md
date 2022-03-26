@@ -1,29 +1,29 @@
 # Yam Drowning Detection And Prevention System
 
-*Introduction*
+**Introduction**
 
 This project aims to implement an IoT system that detect drowning incidents and respond quickly to prevent fatal incidents. The system will alert the supervisor through the integrated mobile application, if a person moves beside the edges of the pool using sensors around the pool. Moreover, the system will provide a wristband to measure the swimmers’ vitals and raise an alert if readings are beyond normal or expected. Furthermore, a net from within the pool will be raised to get the person above the water if any risky situation is anticipated.
 
 ----------------------------------------------------------------------------------------------------------
 
-*Technologies*
+**Technologies**
 
 The main languages used are: 
 
-*Dart* for the mobile application which can be found in *Yam Application*. 
+**Dart** for the mobile application which can be found in *Yam Application*. 
 
-*Python* for the source code of the hardware, it can be found in *RaspberryPi.py*.
+**Python** for the source code of the hardware, it can be found in *RaspberryPi.py*.
 
-*C++* which is also the source code of the hardware, it can be found in *Arduino.ino*.
+**C++** which is also the source code of the hardware, it can be found in *Arduino.ino*.
 
-*JavaScript* which is the source code of the application deployed on fitbit in order send heart rate readings, it can be found in *Fitbit Heart App*
+**JavaScript** which is the source code of the application deployed on fitbit in order send heart rate readings, it can be found in *Fitbit Heart App*
 
 
 The main libraries used are: 
 
 ----------------------------------------------------------------------------------------------------------
 
-*Launch*
+**Launch**
 
 Below is a Step-By-Step on how to configure the hardware.
 
