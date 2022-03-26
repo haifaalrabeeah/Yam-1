@@ -6,6 +6,7 @@ from time import sleep
 import RPi.GPIO as GPIO
 import serial
 import requests
+from subprocess import call
 
 # client, user and device details
 serverUrl   = "mqtt.cumulocity.com"
@@ -32,17 +33,24 @@ ldr6 = 0
 ldr7 = 0
 ldr8 = 0
 
+url = "https://yam-project-2021-default-rtdb.firebaseio.com/WaterQuality.json"
 
 # display all incoming messages
 def on_message(client, userdata, message):
     print("Received operation " + str(message.payload))
-    if (message.payload.startswith("510")):
-        print("Simulating device restart...")
-        publish("s/us", "501,c8y_Restart");
-        print("...restarting...")
-        time.sleep(1)
-        publish("s/us", "503,c8y_Restart");
-        print("...done...")
+    payload = message.payload.decode("utf-8")
+    #print(payload)
+    operation = payload [10:]
+    print(operation)
+    if(operation == 'ON'):
+      GPIO.output(14, GPIO.HIGH)
+      time.sleep(5)
+      GPIO.output(14, GPIO.LOW)
+    if(operation == 'Pause'):
+    	call("sudo shutdown -h now", shell=True)
+
+
+    time.sleep(2)
 
 # send measurement
 def sendMeasurements():
@@ -55,6 +63,8 @@ def sendMeasurements():
 					GPIO.output(14, GPIO.LOW)
 					sleep(0.1)
 					publish("s/us", "200,c8y_AdultSwimming,AdultSwimming," + str(swim))
+					SPO2 = random.randint(90, 95)
+					publish("s/us", "200,c8y_SPO2,SPO2,"+str(SPO2))
 					if ser.in_waiting > 0:
 						line = ser.readline().decode('utf-8').rstrip()
 						
@@ -66,17 +76,18 @@ def sendMeasurements():
 							print("second " + str(line))
 							ldr2 = int(line[4:])
                             
-							if (ldr1<350 and ldr2>500):
+							if (ldr1<500 and ldr2>500):
 								publish("s/us", "200,c8y_LDR1,LDR_LOW," + str(0))
 								publish("s/us", "301,criticalAlarmType[,Child breakthrough")
+								
 								GPIO.output(14, GPIO.HIGH)
-								time.sleep(5)
+								time.sleep(3)
 								GPIO.output(14, GPIO.LOW)
 								
 							else:
 								publish("s/us", "200,c8y_LDR1,LDR_LOW," + str(1)) 
 								
-							if (ldr1 < 350 and ldr2 < 350):
+							if (ldr1 < 500 and ldr2 < 350):
 								publish("s/us", "200,c8y_LDR1,LDR_LOW," + str(0))
 								publish("s/us", "200,c8y_LDR2,LDR_HIGH," + str(0))
 								if (swim == 1):
@@ -95,19 +106,20 @@ def sendMeasurements():
 							print("fourth " + str(line))
 							ldr4 = int(line[4:])
 							
-							if(ldr3 < 350 and ldr4 > 500):
-								publish("s/us", "200,c8y_LDR1,LDR_LOW," + str(0))
+							if(ldr3 < 500 and ldr4 > 500):
+								publish("s/us", "200,c8y_LDR3,LDR_LOW," + str(0))
 								publish("s/us", "301,criticalAlarmType[,Child breakthrough]")
+								
 								GPIO.output(14, GPIO.HIGH)
-								time.sleep(5)
+								time.sleep(3)
 								GPIO.output(14, GPIO.LOW)
 								
 							else:
-								publish("s/us", "200,c8y_LDR1,LDR_LOW," + str(1)) 
+								publish("s/us", "200,c8y_LDR3,LDR_LOW," + str(1)) 
 								
-							if (ldr3 < 350 and ldr4 < 350):
-								publish("s/us", "200,c8y_LDR2,LDR_HIGH," + str(0))
-								publish("s/us", "200,c8y_LDR1,LDR_LOW," + str(0))
+							if (ldr3 < 500 and ldr4 < 350):
+								publish("s/us", "200,c8y_LDR3,LDR_HIGH," + str(0))
+								publish("s/us", "200,c8y_LDR4,LDR_LOW," + str(0))
 								
 								if (swim == 1):
 									swim = 0
@@ -115,7 +127,7 @@ def sendMeasurements():
 									swim = 1
 									
 							else:
-								publish("s/us", "200,c8y_LDR2,LDR_HIGH," + str(1))   								
+								publish("s/us", "200,c8y_LDR4,LDR_HIGH," + str(1))   								
 				
 								
                 			
@@ -127,19 +139,20 @@ def sendMeasurements():
 							print("sixth " + str(line))
 							ldr6 = int(line[4:])
 							
-							if(ldr5 <350 and ldr6>500):
-								publish("s/us", "200,c8y_LDR1,LDR_LOW," + str(0))
+							if(ldr5 <500 and ldr6>400):
+								publish("s/us", "200,c8y_LDR5,LDR_LOW," + str(0))
 								publish("s/us", "301,criticalAlarmType[,Child breakthrough]")
+								
 								GPIO.output(14, GPIO.HIGH)
-								time.sleep(5)
+								time.sleep(1)
 								GPIO.output(14, GPIO.LOW)
 								
 							else:
-								publish("s/us", "200,c8y_LDR1,LDR_LOW," + str(1)) 
+								publish("s/us", "200,c8y_LDR5,LDR_LOW," + str(1)) 
 								
-							if (ldr5 < 350 and ldr6 < 350):
-								publish("s/us", "200,c8y_LDR2,LDR_HIGH," + str(0))
-								publish("s/us", "200,c8y_LDR1,LDR_LOW," + str(0))
+							if (ldr5 < 500 and ldr6 < 350):
+								publish("s/us", "200,c8y_LDR5,LDR_HIGH," + str(0))
+								publish("s/us", "200,c8y_LDR6,LDR_LOW," + str(0))
 								
 								if (swim == 1):
 									swim = 0
@@ -147,7 +160,7 @@ def sendMeasurements():
 									swim = 1
 									
 							else:
-								publish("s/us", "200,c8y_LDR2,LDR_HIGH," + str(1))   								
+								publish("s/us", "200,c8y_LDR6,LDR_HIGH," + str(1))   								
                 			
 						if(line[0:4] == "ldr7"):
 							print("seventh " + str(line))
@@ -157,19 +170,20 @@ def sendMeasurements():
 							print("eighth " + str(line))
 							ldr8 = int(line[4:])
 							
-							if(ldr7 <350 and ldr8>500):
-								publish("s/us", "200,c8y_LDR1,LDR_LOW," + str(0))
+							if(ldr7 <500 and ldr8>500):
+								publish("s/us", "200,c8y_LDR7,LDR_LOW," + str(0))
 								publish("s/us", "301,criticalAlarmType[,Child breakthrough]")
+								
 								GPIO.output(14, GPIO.HIGH)
-								time.sleep(5)
+								time.sleep(3)
 								GPIO.output(14, GPIO.LOW)
 								
 							else:
-								publish("s/us", "200,c8y_LDR1,LDR_LOW," + str(1)) 
+								publish("s/us", "200,c8y_LDR7,LDR_LOW," + str(1)) 
 								
-							if (ldr7 < 350 and ldr8 < 350):
-								publish("s/us", "200,c8y_LDR2,LDR_HIGH," + str(0))
-								publish("s/us", "200,c8y_LDR1,LDR_LOW," + str(0))
+							if (ldr7 < 500 and ldr8 < 350):
+								publish("s/us", "200,c8y_LDR7,LDR_HIGH," + str(0))
+								publish("s/us", "200,c8y_LDR8,LDR_LOW," + str(0))
 								
 								if (swim == 1):
 									swim = 0
@@ -177,23 +191,27 @@ def sendMeasurements():
 									swim = 1
 									
 							else:
-								publish("s/us", "200,c8y_LDR2,LDR_HIGH," + str(1))   								
+								publish("s/us", "200,c8y_LDR8,LDR_HIGH," + str(1))   								
 								
 						if(line[0:4] == "Temp"):
-							print("Temp"+str(line[4:0]))
-							temp= float(line[4:])
+							#print("Temp"+str(line[4:0]))
+							temp= random.randint(10, 20)
 							print(temp)
 							publish("s/us", "200,c8y_Temp,WaterTemp,"+str(temp))
+							
+
 							
 						if(line[0:3] == "TDS"):
 							print("Water Quality"+str(line[3:0]))
 							TDS= float(line[3:])
 							print(TDS)
 							publish("s/us", "200,c8y_TDS,WaterQuality,"+str(TDS))
-							
-							if(TDS < 500 or TDS > 2000):
+							payload = ('{\n\"TDS\":' + str(TDS) +' \n}')
+							headers = {'Content-Type': 'text/plain'}
+							response = requests.request("PUT", url, headers=headers, data=payload)
+							if(TDS < 500 or TDS > 2500):
 								publish("s/us", "302,majorAlarmType[,Poor water quality")
-							
+								
 						if(line[0:2] == "pH"):
 							print("Water Quality"+str(line[2:0]))
 							pH= float(line[2:])
@@ -205,8 +223,7 @@ def sendMeasurements():
 								
 							if(pH > 7.8):
 								publish("s/us", "302,majorAlarmType[,High pH level")
-							
-
+								
 						
 				
 
@@ -232,8 +249,11 @@ client.loop_start()
 publish("s/us", "100," + device_name + ",c8y_MQTTDevice", True)
 publish("s/us", "110,S123456789,MQTT test model,Rev0.1")
 publish("s/us", "114,c8y_Restart")
+publish("s/us", "114,c8y_Command")
+
 print("Device registered successfully!")
 
 client.subscribe("s/ds")
 #while True:
 sendMeasurements()
+
